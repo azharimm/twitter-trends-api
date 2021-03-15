@@ -17,7 +17,7 @@ exports.trends = async (req, res) => {
     let locationName = "Worldwide";
     if (location) {
         baseUrl = baseUrl + "/"+ location;
-        locationName = location.toUpperCase();
+        locationName = location.toUpperCase().replace('-',' ');
     }
     try {
         const htmlResult = await request.get(baseUrl);
@@ -54,7 +54,7 @@ exports.location = async (req, res) => {
         $(".suggested-locations__list")
             .children("li")
             .each((index, el) => {
-                let location = $(el).text();
+                let location = $(el).text().replace(' ', '-');
                 locations.push({
                     location_path: location.toLocaleLowerCase(),
                     location_url:
