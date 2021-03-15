@@ -1,5 +1,6 @@
 const request = require("request-promise");
 const cheerio = require("cheerio");
+var moment = require('moment');
 const { json, errorJson } = require("../utils/response");
 
 exports.index = (req, res) => {
@@ -24,7 +25,8 @@ exports.trends = async (req, res) => {
         const $ = await cheerio.load(htmlResult);
         const trends = [];
         $(".trend-card").each((index, el) => {
-            let time = $(el).find(".trend-card__time").text();
+            let datetime = $(el).find(".trend-card__time").text();
+            let time = moment(datetime, 'DD-MM-YYYY - HH:mm:ss').fromNow();
             let temp = [];
             $(el)
                 .find(".trend-card__list")
@@ -34,7 +36,8 @@ exports.trends = async (req, res) => {
                     let tweet_count = $(el).find(".tweet-count").text();
                     temp.push({ name, tweet_count });
                     trends[index] = {
-                        time: time,
+                        datetime,
+                        time,
                         data: temp,
                     };
                 });
