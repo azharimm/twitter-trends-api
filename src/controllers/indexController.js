@@ -9,6 +9,14 @@ exports.index = (req, res) => {
     return json(res, {
         maintainer: "Azhari Muhammad M <azhari.marzan@gmail.com>",
         source: "https://github.com/azharimm/twitter-trends-api",
+        location: {
+            endpoint: '/location',
+            example: fullUrl+'location',
+        },
+        trends: {
+            endpoint: '/trends',
+            example: fullUrl+'trends?location=indonesia'
+        }
     });
 };
 
