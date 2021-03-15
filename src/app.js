@@ -16,7 +16,8 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", indexController.index);
-app.get("/test", indexController.test);
+app.get("/trends", indexController.trends);
+app.get("/location", indexController.location);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
